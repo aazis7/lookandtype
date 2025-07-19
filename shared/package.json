@@ -19,7 +19,7 @@
     }
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=production tsup",
+    "build": "npm run clean && cross-env NODE_ENV=production tsup",
     "check-types": "tsc --noEmit",
     "dev": "cross-env NODE_ENV=development tsup --watch",
     "start": "cross-env NODE_ENV=production tsup --watch",
@@ -31,7 +31,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "winston": "^3.17.0"
+    "consola": "^3.4.2"
   },
   "devDependencies": {
     "eslint-plugin-node": "^11.1.0",
