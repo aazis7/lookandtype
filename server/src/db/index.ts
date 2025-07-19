@@ -1,8 +1,9 @@
 import { drizzle } from "drizzle-orm/libsql";
 import * as schema from "./schema";
+import { env } from "../env";
 
-const url = process.env.TURSO_CONNECTION_URL as string;
-const authToken = process.env.TURSO_AUTH_TOKEN as string;
+const url = env.TURSO_CONNECTION_URL;
+const authToken = env.TURSO_AUTH_TOKEN;
 
 type DB = ReturnType<typeof drizzle<typeof schema>>;
 
@@ -12,6 +13,6 @@ const globalForDb = globalThis as unknown as {
 
 const db = drizzle({ connection: { url, authToken }, schema });
 
-if (process.env.NODE_ENV === "development") globalForDb.db = db;
+if (env.NODE_ENV === "development") globalForDb.db = db;
 
 export { db };
