@@ -8,30 +8,25 @@ export type ErrorResponse<T extends void> = {
   message?: string;
 } & (T extends void ? {} : { error: T });
 
-export interface LogLevel {
-  error: 0;
-  warn: 1;
-  info: 2;
-  http: 3;
-  verbose: 4;
-  debug: 5;
-  silly: 6;
+export interface LoggerConfig {
+  logDir?: string;
+  level?: string;
+  appName?: string;
+  maxFiles?: string;
+  maxSize?: string;
+  enableConsole?: boolean;
+  enableFile?: boolean;
+  enableErrorFile?: boolean;
 }
 
-export interface LogContext {
-  userId?: string;
-  requestId?: string;
-  component?: string;
-  action?: string;
-  metadata?: Record<string, any>;
+export interface RequestLog {
+  method: string;
+  url: string;
+  statusCode: number;
+  responseTime: number;
+  userAgent?: string;
+  ip: string;
+  userId?: string | number;
 }
 
-export interface Logger {
-  error(message: string, context?: LogContext): void;
-  warn(message: string, context?: LogContext): void;
-  info(message: string, context?: LogContext): void;
-  http(message: string, context?: LogContext): void;
-  debug(message: string, context?: LogContext): void;
-  verbose(message: string, context?: LogContext): void;
-  silly(message: string, context?: LogContext): void;
-}
+
