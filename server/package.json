@@ -16,7 +16,11 @@
     "check-types": "tsc --noEmit",
     "lint": "eslint src/ --max-warnings 0",
     "clean": "rm -rf dist",
-    "test": "vitest"
+    "test": "vitest",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@libsql/client": "^0.15.10",
