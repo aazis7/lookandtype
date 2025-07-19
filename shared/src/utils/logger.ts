@@ -20,13 +20,29 @@ export class Logger {
       enableErrorFile: options.enableErrorFile ?? true,
     };
 
-    this.ensureLogDir();
+    if (this.config.enableFile || this.config.enableErrorFile) {
+      const canCreateDir = this.ensureLogDir();
+      if (!canCreateDir) {
+        this.config.enableFile = false;
+        this.config.enableErrorFile = false;
+      }
+    }
+
     this.instance = this.createLogger();
   }
 
-  private ensureLogDir(): void {
-    if (!fs.existsSync(this.config.logDir)) {
-      fs.mkdirSync(this.config.logDir, { recursive: true });
+  private ensureLogDir(): boolean {
+    try {
+      if (!fs.existsSync(this.config.logDir)) {
+        fs.mkdirSync(this.config.logDir, { recursive: true });
+      }
+      return true;
+    } catch (error) {
+      // File system not writable (e.g., AWS Lambda, Docker with read-only filesystem)
+      console.warn(
+        `[Logger] Cannot create log directory '${this.config.logDir}'. File logging disabled.`,
+      );
+      return false;
     }
   }
 
