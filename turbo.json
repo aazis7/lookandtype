@@ -1,0 +1,118 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!dist/**",
+        "!.turbo/**",
+        "!node_modules/**"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**",
+        "!.next/cache/**"
+      ],
+      "env": [
+        "NODE_ENV",
+        "VITE_*",
+        "PUBLIC_*"
+      ]
+    },
+    "dev": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "persistent": true,
+      "env": [
+        "NODE_ENV",
+        "VITE_*",
+        "PUBLIC_*",
+        "PORT"
+      ]
+    },
+    "lint": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!dist/**",
+        "!.turbo/**",
+        "!node_modules/**",
+        ".eslintrc*",
+        "eslint.config.*"
+      ],
+      "outputs": []
+    },
+    "lint:fix": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!dist/**",
+        "!.turbo/**",
+        "!node_modules/**",
+        ".eslintrc*",
+        "eslint.config.*"
+      ]
+    },
+    "check-types": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!dist/**",
+        "!.turbo/**",
+        "!node_modules/**",
+        "tsconfig*.json"
+      ],
+      "outputs": [
+        "tsconfig.tsbuildinfo"
+      ]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!dist/**",
+        "!.turbo/**",
+        "!node_modules/**"
+      ],
+      "outputs": [
+        "coverage/**"
+      ],
+      "env": [
+        "NODE_ENV"
+      ]
+    },
+    "test:watch": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "persistent": true
+    },
+    "clean": {
+      "cache": false,
+      "inputs": [],
+      "outputs": []
+    },
+    "format": {
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!dist/**",
+        "!.turbo/**",
+        "!node_modules/**",
+        ".prettierrc*",
+        "prettier.config.*"
+      ],
+      "outputs": []
+    }
+  },
+  "globalDependencies": [
+    "package.json",
+    "turbo.json",
+    ".env",
+    ".env.local",
+    ".env.production"
+  ],
+  "globalEnv": [
+    "NODE_ENV"
+  ]
+}

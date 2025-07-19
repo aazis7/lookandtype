@@ -1,0 +1,40 @@
+{
+  "name": "shared",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "author": "aazis7",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production tsup",
+    "check-types": "tsc --noEmit",
+    "dev": "cross-env NODE_ENV=development tsup --watch",
+    "start": "cross-env NODE_ENV=production tsup --watch",
+    "lint": "eslint .",
+    "clean": "rm -rf dist",
+    "test": "vitest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-security": "^3.0.1"
+  }
+}
